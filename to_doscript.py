@@ -11,15 +11,22 @@ def read_file():
     return tasks
 
 
-def task_name():
-    task = input("Enter the task name: ")
-    return task
+def new_task():
+    task_name = input("Enter the task name: ")
+    task_description = input("Enter the task description: ")
+    task_deadline = input("Enter the task deadline: ")
+    return task_name, task_description, task_deadline
 
 
-def write_file(task):
+def write_file(task_name, task_description, task_deadline):
     with open('tasks.txt', 'a') as file:
-        json.dump(task, file)
-        file.write(task + '\n')
+        task_dict = {
+            "name": task_name,
+            "description": task_description,
+            "deadline": task_deadline
+        }
+        json.dump(task_dict, file)
+        file.write('\n')
 
 def menu():
     print("1. Add a task")
@@ -36,7 +43,7 @@ def menu():
 
 
 
-def options():
+def options(choice):
     print("1. Add a task")
     print("2. Remove a task")
     print("3. List all tasks")
